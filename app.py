@@ -51,7 +51,7 @@ if st.button("Send",width=300):
 
                 if len(docs) < 2:
                     output_box = st.empty()
-                    output_box.markdown("⚠️ Low context retrieved. I prefer not to guess.")
+                    output_box.markdown("⚠️ Low context retrieved, Maybe the question not in my knowledge.")
                     st.stop()
 
             except Exception as e:
