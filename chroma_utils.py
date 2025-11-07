@@ -11,31 +11,30 @@ emb_wrapper = STEmbeddingsWrapper()
 
 
 def running_in_streamlit_cloud():
-    # Streamlit Cloud sets this internally
     return "STREAMLIT_SERVER_CONFIG" in os.environ
 
 
 def safe_chroma_load(persist_dir: str):
     if running_in_streamlit_cloud():
-        return None  # disable fs load on cloud
+        return None
     try:
         return Chroma(persist_directory=persist_dir, embedding=emb_wrapper)
     except Exception:
         return None
 
 
-def build_or_load_chroma(agent_name: str, url: str):
+def build_or_load_chroma(agent_name: str, url):
     persist_dir = os.path.join(BASE_DB_DIR, agent_name)
 
-    # --- CASE 1: local persist load (only local) ---
+    # CASE 1: try to load local chroma persist
     if not running_in_streamlit_cloud():
         if os.path.isdir(persist_dir) and os.listdir(persist_dir):
             db = safe_chroma_load(persist_dir)
             if db:
                 return db
 
-    # --- CASE 2: JSON persona file local ---
-    if url.endswith(".json") and os.path.exists(url):
+    # CASE 2: JSON persona file
+    if isinstance(url, str) and url.endswith(".json") and os.path.exists(url):
         with open(url, "r", encoding="utf-8") as f:
             data = f.read()
 
@@ -48,15 +47,25 @@ def build_or_load_chroma(agent_name: str, url: str):
         db.persist()
         return db
 
-    # --- CASE 3: normal URL web loader ---
-    loader = WebBaseLoader(url)
-    docs = loader.load()
+    # CASE 3: URLs (single or list)
+    all_docs = []
 
-    #FIX: filter empty docs
-    docs = [d for d in docs if d.page_content and d.page_content.strip()]
+    if isinstance(url, list):
+        urls = url
+    else:
+        urls = [url]
+
+    for u in urls:
+        try:
+            loader = WebBaseLoader(u)
+            docs = loader.load()
+            docs = [d for d in docs if d.page_content and d.page_content.strip()]
+            all_docs.extend(docs)
+        except:
+            pass
 
     splitter = RecursiveCharacterTextSplitter(chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP)
-    split_docs = splitter.split_documents(docs)
+    split_docs = splitter.split_documents(all_docs)
     split_docs = [d for d in split_docs if d.page_content and d.page_content.strip()]
 
     if running_in_streamlit_cloud():
