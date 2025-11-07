@@ -2,7 +2,7 @@ import os
 import json
 import streamlit as st
 from dotenv import load_dotenv
-from config import AGENT_URLS, TOP_K
+from config import AGENT_PERSONAS, AGENT_PREFIX, AGENT_URLS, TOP_K
 from chroma_utils import build_or_load_chroma
 from memory import load_memory_file, append_memory, save_memory_file
 from ui_helpers import format_history_for_prompt
@@ -51,7 +51,8 @@ if st.button("Send",width=300):
             context_text = "\n\n".join(d.page_content for d in docs)
             history_text = format_history_for_prompt(st.session_state.memory, agent)
             prompt = (
-                f"You are an assistant. Use the context and chat history to answer.\n\n"
+                f"{AGENT_PERSONAS.get(agent, '')}\n\n"
+                f"Use the context and chat history only to answer.\n\n"
                 f"Context:\n{context_text}\n\n"
                 f"Chat history:\n{history_text}\n\n"
                 f"User question:\n{question}\n\n"
@@ -74,8 +75,13 @@ if st.button("Send",width=300):
             except Exception as e:
                 st.error(f"Streaming error: {e}")
             else:
-                append_memory(st.session_state.memory, agent, "assistant", full_answer)
+                final_answer = AGENT_PREFIX.get(agent, "") + full_answer
+
+                append_memory(st.session_state.memory, agent, "assistant", final_answer)
+
+                output_box.markdown(final_answer)
                 st.success("Done ✅")
+
 
 
 
