@@ -44,6 +44,16 @@ if st.button("Send",width=300):
 
             try:
                 docs = retriever.invoke(question)
+                if not docs or len(docs) == 0:
+                    output_box = st.empty()
+                    output_box.markdown("⚠️ I don't have enough knowledge to answer that based on my sources.")
+                    st.stop()
+
+                if len(docs) < 2:
+                    output_box = st.empty()
+                    output_box.markdown("⚠️ Low context retrieved. I prefer not to guess.")
+                    st.stop()
+
             except Exception as e:
                 st.error(f"Retriever error: {e}")
                 st.stop()
