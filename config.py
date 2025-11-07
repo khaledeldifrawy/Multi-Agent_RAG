@@ -3,10 +3,10 @@ import os
 AGENT_URLS = {
     "about khaled": os.path.join(os.getcwd(), "khaled_profile.json"),
 
-    "Python": [
-        "https://docs.python.org/3/tutorial/",
-        "https://www.w3schools.com/python/"
-    ],
+    # "Python": [
+    #     "https://docs.python.org/3/tutorial/",
+    #     "https://www.w3schools.com/python/"
+    # ],
 
     "ML": [
         "https://scikit-learn.org/stable/user_guide.html",
