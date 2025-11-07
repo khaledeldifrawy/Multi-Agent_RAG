@@ -2,13 +2,38 @@ import os
 
 AGENT_URLS = {
     "about khaled": os.path.join(os.getcwd(), "khaled_profile.json"),
-    "Python": "https://scikit-learn.org/stable/tutorial/basic/tutorial.html",
-    "ML": "https://scikit-learn.org/stable/tutorial/basic/tutorial.html",
-    "DL": "https://huggingface.co/learn/nlp-course/chapter1/1",
-    "LangChain": "https://python.langchain.com/docs/get_started/introduction",
-    "LLM": "https://www.deeplearning.ai/short-courses/large-language-models/",
-    "Deploy": "https://mlops.readthedocs.io/en/latest/",
+
+    "Python": [
+        "https://docs.python.org/3/tutorial/",
+        "https://www.w3schools.com/python/"
+    ],
+
+    "ML": [
+        "https://scikit-learn.org/stable/user_guide.html",
+        "https://www.geeksforgeeks.org/machine-learning/"
+    ],
+
+    "DL": [
+        "https://www.deeplearning.ai/short-courses/",
+        "https://pytorch.org/tutorials/"
+    ],
+
+    "LangChain": [
+        "https://python.langchain.com/docs/get_started/introduction",
+        "https://python.langchain.com/docs/modules/"
+    ],
+
+    "LLM": [
+        "https://huggingface.co/learn/",
+        "https://www.deeplearning.ai/short-courses/large-language-models/"
+    ],
+
+    "Deploy": [
+        "https://mlops.readthedocs.io/en/latest/",
+        "https://learn.microsoft.com/en-us/azure/machine-learning/concept-model-deployment"
+    ],
 }
+
 
 AGENT_PERSONAS = {
     "about khaled": (
