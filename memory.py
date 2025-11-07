@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 from config import MEMORY_FILE
 
 def load_memory_file() -> dict:
@@ -8,6 +9,7 @@ def load_memory_file() -> dict:
     try:
         with open(MEMORY_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
+            # ensure correct structure
             return data if isinstance(data, dict) else {}
     except Exception:
         return {}
@@ -21,5 +23,9 @@ def save_memory_file(mem: dict) -> None:
 def append_memory(mem: dict, agent: str, role: str, text: str) -> None:
     if agent not in mem:
         mem[agent] = []
-    mem[agent].append({"role": role, "text": text})
+    mem[agent].append({
+        "role": role,
+        "text": text,
+        "timestamp": datetime.utcnow().isoformat()  # NEW
+    })
     save_memory_file(mem)
