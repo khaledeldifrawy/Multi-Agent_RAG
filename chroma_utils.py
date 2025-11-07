@@ -52,6 +52,7 @@ def build_or_load_chroma(agent_name: str, url: str):
     loader = WebBaseLoader(url)
     docs = loader.load()
 
+    docs = [d for d in docs if d.page_content and isinstance(d.page_content, str)]
     splitter = RecursiveCharacterTextSplitter(chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP)
     split_docs = splitter.split_documents(docs)
 
