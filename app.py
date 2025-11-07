@@ -99,13 +99,13 @@ with col3:
 
 
 # ---------------- Show conversation ----------------
-st.markdown("---")
-st.subheader("Conversation history (this agent)")
-hist = st.session_state.memory.get(agent, [])
-if not hist:
-    st.info("Start yor conversation.")
-else:
-    for m in hist:
-        role = m.get("role", "user")
-        text = m.get("text", "")
-        st.markdown(f"**{role.capitalize()}:** {text}")
+# st.markdown("---")
+# st.subheader("Conversation history (this agent)")
+# hist = st.session_state.memory.get(agent, [])
+# if not hist:
+#     st.info("Start yor conversation.")
+# else:
+#     for m in hist:
+#         role = m.get("role", "user")
+#         text = m.get("text", "")
+#         st.markdown(f"**{role.capitalize()}:** {text}")
