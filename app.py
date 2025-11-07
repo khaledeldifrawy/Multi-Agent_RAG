@@ -19,7 +19,7 @@ if "memory" not in st.session_state:
     st.session_state.memory = load_memory_file()
 
 # ---------------- UI ----------------
-st.title("Multi-Agent RAG")
+st.title("Multi-Agent <Ask right question to right agent>")
 
 agent = st.selectbox("Select Agent", list(AGENT_URLS.keys()))
 question = st.text_input("Ask your question")
@@ -36,7 +36,7 @@ if st.button("Send",width=300):
             append_memory(st.session_state.memory, agent, "user", question)
 
             if agent not in st.session_state.db_cache:
-                with st.spinner(f"Preparing DB for {agent}..."):
+                with st.spinner(f"Preparing DB for {agent}, Maybe take some seconds first time"):
                     st.session_state.db_cache[agent] = build_or_load_chroma(agent, AGENT_URLS[agent])
 
             db = st.session_state.db_cache[agent]
