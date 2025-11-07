@@ -55,6 +55,7 @@ def build_or_load_chroma(agent_name: str, url: str):
     docs = [d for d in docs if d.page_content and isinstance(d.page_content, str)]
     splitter = RecursiveCharacterTextSplitter(chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP)
     split_docs = splitter.split_documents(docs)
+    split_docs = [d for d in split_docs if d.page_content and isinstance(d.page_content, str)]
 
     if running_in_streamlit_cloud():
         return Chroma.from_documents(split_docs, embedding=emb_wrapper)
