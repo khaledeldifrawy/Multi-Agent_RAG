@@ -51,6 +51,9 @@ def build_or_load_chroma(agent_name: str, url: str):
     # --- CASE 3: normal URL web loader ---
     loader = WebBaseLoader(url)
     docs = loader.load()
+    
+    #FIX: filter empty docs
+    docs = [d for d in docs if d.page_content and d.page_content.strip()]
 
     splitter = RecursiveCharacterTextSplitter(chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP)
     split_docs = splitter.split_documents(docs)
