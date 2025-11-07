@@ -47,14 +47,24 @@ def build_or_load_chroma(agent_name: str, url: str):
         db = Chroma.from_documents(split_docs, embedding=emb_wrapper, persist_directory=persist_dir)
         db.persist()
         return db
-
     # --- CASE 3: normal URL web loader ---
     loader = WebBaseLoader(url)
     docs = loader.load()
 
-    docs = [d for d in docs if d.page_content and isinstance(d.page_content, str)]
+    # convert None content safely → empty string
+    fixed_docs = []
+    for d in docs:
+        text = d.page_content
+        if not text:
+            continue
+        if not isinstance(text, str):
+            text = str(text)
+        fixed_docs.append(Document(page_content=text))
+
     splitter = RecursiveCharacterTextSplitter(chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP)
-    split_docs = splitter.split_documents(docs)
+    split_docs = splitter.split_documents(fixed_docs)
+
+    # filter again
     split_docs = [d for d in split_docs if d.page_content and isinstance(d.page_content, str)]
 
     if running_in_streamlit_cloud():
@@ -63,3 +73,4 @@ def build_or_load_chroma(agent_name: str, url: str):
     db = Chroma.from_documents(split_docs, embedding=emb_wrapper, persist_directory=persist_dir)
     db.persist()
     return db
+
