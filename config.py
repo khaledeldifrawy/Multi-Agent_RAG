@@ -1,7 +1,7 @@
 import os
 
-# ---------------- Config ----------------
 AGENT_URLS = {
+    "about khaled":"khaled_profile.json",
     "Python": "https://docs.python.org/3/",
     "ML": "https://scikit-learn.org/stable/user_guide.html",
     "DL": "https://huggingface.co/docs/transformers/index",
