@@ -57,6 +57,16 @@ AGENT_PERSONAS = {
     )
 }
 
+AGENT_PREFIX = {
+    "about khaled": "🧑‍💻 Khaled: ",
+    "Python": "🐍 Python: ",
+    "ML": "📊 ML: ",
+    "DL": "🧠 DL: ",
+    "LangChain": "🔗 LangChain: ",
+    "LLM": "📚 LLM: ",
+    "Deploy": "🚀 Deploy: ",
+}
+
 
 
 BASE_DB_DIR = "./agent_dbs"
