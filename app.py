@@ -4,6 +4,7 @@ import streamlit as st
 from dotenv import load_dotenv
 from config import AGENT_PERSONAS, AGENT_PREFIX, AGENT_URLS, TOP_K
 from chroma_utils import build_or_load_chroma
+from embeddings import CleanRetriever
 from memory import load_memory_file, append_memory, save_memory_file
 from ui_helpers import format_history_for_prompt
 from langchain_groq import ChatGroq
@@ -41,6 +42,7 @@ if st.button("Send",width=300):
 
             db = st.session_state.db_cache[agent]
             retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": TOP_K})
+            retriever = CleanRetriever(retriever) # to clean and handle none page content
 
             try:
                 docs = retriever.invoke(question)
