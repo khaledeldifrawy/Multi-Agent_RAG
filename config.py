@@ -2,7 +2,7 @@ import os
 
 AGENT_URLS = {
     "about khaled": os.path.join(os.getcwd(), "khaled_profile.json"),
-    "Python": "https://realpython.com/",
+    "Python": "https://scikit-learn.org/stable/tutorial/basic/tutorial.html",
     "ML": "https://scikit-learn.org/stable/tutorial/basic/tutorial.html",
     "DL": "https://huggingface.co/learn/nlp-course/chapter1/1",
     "LangChain": "https://python.langchain.com/docs/get_started/introduction",
