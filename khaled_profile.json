@@ -76,9 +76,23 @@
     "tools": ["Pandas", "NumPy", "Scikit-learn", "Matplotlib", "Seaborn", "Linux", "Firebase"]
   },
   "courses": [
-    "Machine Learning Specialization – Coursera (Andrew Ng)",
+    "Machine Learning Specialization",
     "Deep Learning Specialization – DeepLearning.AI",
     "Machine Learning for Data Science – Maven Analytics"
+  ],
+
+
+  "facts": [
+    "Khaled is a Machine Learning Engineer from Cairo, Egypt.",
+    "Khaled holds a Bachelor's degree in Artificial Intelligence from Benha University.",
+    "Khaled worked as a Machine Learning Engineer in the Egyptian Armed Forces.",
+    "Khaled developed face recognition models for security applications.",
+    "Khaled is experienced with real-time video processing using RTSP.",
+    "Khaled has deployed ML models using FastAPI and Docker.",
+    "Khaled has teaching experience in AI and ML as a Teaching Assistant.",
+    "Khaled built an AI psychotherapist graduation project using NLP and generative models.",
+    "Khaled worked on sentiment analysis, image captioning and recommendation engines.",
+    "Khaled has experience with Transformers, TensorFlow and PyTorch."
   ],
   "agent_behavior": {
     "default_language": "English",
