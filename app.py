@@ -49,7 +49,7 @@ if st.button("Send",width=300):
                     output_box.markdown("⚠️ I don't have enough knowledge to answer that based on my sources.")
                     st.stop()
 
-                if len(docs) < 2:
+                if len(docs) < 10:
                     output_box = st.empty()
                     output_box.markdown("⚠️ Low context retrieved, Maybe the question not in my knowledge.")
                     st.stop()
